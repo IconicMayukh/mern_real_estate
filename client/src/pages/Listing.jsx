@@ -16,7 +16,7 @@ export default function Listing() {
     const [loading, setLoading] = useState(true)
     const [copied, setCopied] = useState(false)
     const [contact, setContact] = useState(false)
-    const { currentUser } = useSelector((state) => state.user.currentUser);
+    const { currentUser } = useSelector((state) => state.user);
     useEffect(() => {
         const fetchListing = async () => {
             try {
@@ -29,7 +29,7 @@ export default function Listing() {
                     setLoading(false);
                     return;
                 }
-
+                
                 setListing(data);
                 setLoading(false)
                 setError(false)
@@ -40,6 +40,8 @@ export default function Listing() {
         }
         fetchListing();
     }, [params.listingId])
+
+    
 
     return (
         <main>
@@ -115,7 +117,7 @@ export default function Listing() {
                             </li>
                         </ul>
 
-                        {currentUser && listing.userRef !== currentUser._id && !contact && (
+                        {currentUser && listing && listing.userRef !== currentUser._id && !contact && (
                             <button onClick={() => setContact(true)} className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-90 p-3 cursor-pointer'>Contact Landlord </button>
                         )}
 
